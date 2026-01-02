@@ -1,5 +1,5 @@
-﻿using LabApi.Core.Models;
-using LabApi.Domain.Entities;
+﻿using LabApi.Domain;
+using LabApi.Domain.Entities.ClinicalTestAggregate;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

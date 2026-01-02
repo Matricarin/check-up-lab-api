@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace LabApi.Core.Models;
+namespace LabApi.Domain;
 
 public sealed class AppUser : IdentityUser
 {

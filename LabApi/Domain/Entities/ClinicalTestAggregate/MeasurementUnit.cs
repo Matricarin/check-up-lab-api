@@ -1,4 +1,4 @@
-﻿namespace LabApi.Core.Models;
+﻿namespace LabApi.Domain.Entities.ClinicalTestAggregate;
 
 public sealed class MeasurementUnit : ValueObject
 {

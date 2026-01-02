@@ -1,6 +1,4 @@
-﻿using LabApi.Core.Models;
-
-namespace LabApi.Domain.Entities;
+﻿namespace LabApi.Domain.Entities.ClinicalTestAggregate;
 
 public sealed class ClinicalTest
 {

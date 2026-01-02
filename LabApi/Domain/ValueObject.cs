@@ -1,4 +1,4 @@
-﻿namespace LabApi.Core.Models;
+﻿namespace LabApi.Domain;
 
 public abstract class ValueObject
 {

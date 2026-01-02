@@ -1,4 +1,4 @@
-using LabApi.Core.Models;
+using LabApi.Domain;
 using LabApi.Infrastructure.Data;
 
 using Microsoft.AspNetCore.Identity;
