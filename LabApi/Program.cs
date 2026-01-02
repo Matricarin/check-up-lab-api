@@ -1,5 +1,6 @@
 using LabApi.Domain;
 using LabApi.Infrastructure.Data;
+using LabApi.Seed;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await AppDbContextSeed.SeedAsync(context);
 }
 
 app.UseHttpsRedirection();
