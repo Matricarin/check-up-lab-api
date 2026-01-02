@@ -13,7 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
     dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 WebApplication app = builder.Build();
 
