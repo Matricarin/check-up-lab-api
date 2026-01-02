@@ -8,7 +8,7 @@ public sealed class MeasurementUnit : ValueObject
     private MeasurementUnit(){ }
 
     public static MeasurementUnit Milliliters => new("ml", "Milliliters");
-
+    public static readonly MeasurementUnit MgPerDl = new("mg/dL", "Milligrams per deciliter");
     private MeasurementUnit(string code, string displayName)
     {
         Code = code;
