@@ -54,11 +54,11 @@ public class AppDbContext : IdentityDbContext
                 nv.OwnsOne(m => m.Unit, u =>
                 {
                     u.Property(mu => mu.Code)
-                        .HasColumnName("Code")
+                        .HasColumnName("MeasurementCode")
                         .IsRequired();
 
                     u.Property(mu => mu.DisplayName)
-                        .HasColumnName("Name")
+                        .HasColumnName("MeasurementName")
                         .IsRequired();
                 });
 
@@ -68,7 +68,7 @@ public class AppDbContext : IdentityDbContext
                         .HasColumnName("AgeFrom")
                         .IsRequired();
 
-                    r.Property(ar => ar.From)
+                    r.Property(ar => ar.To)
                         .HasColumnName("AgeTo")
                         .IsRequired();
                 });
