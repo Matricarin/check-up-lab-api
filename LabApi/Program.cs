@@ -1,5 +1,6 @@
 using LabApi.Infrastructure.Data;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -8,8 +9,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
     dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>();
 
 WebApplication app = builder.Build();
 
