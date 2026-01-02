@@ -4,6 +4,8 @@ public class AgeRange : ValueObject
 {
     public int From { get; }
     public int To { get; }
+    
+    private AgeRange(){}
 
     public AgeRange(int from, int to)
     {
