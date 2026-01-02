@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using LabApi.Core.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -6,6 +8,8 @@ namespace LabApi.Infrastructure.Data;
 
 public class AppDbContext : IdentityDbContext
 {
+    public DbSet<AppUser> AppUsers { get; set; }
+
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -13,7 +17,7 @@ public class AppDbContext : IdentityDbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.ConfigureWarnings(warning => 
+        optionsBuilder.ConfigureWarnings(warning =>
             warning.Ignore(RelationalEventId.PendingModelChangesWarning));
     }
 }
