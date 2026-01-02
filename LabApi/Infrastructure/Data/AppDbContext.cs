@@ -9,7 +9,7 @@ namespace LabApi.Infrastructure.Data;
 public class AppDbContext : IdentityDbContext
 {
     public DbSet<AppUser> AppUsers { get; set; }
-
+    public DbSet<ClinicalTest> ClinicalTests { get; set; }
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
