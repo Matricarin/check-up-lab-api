@@ -1,4 +1,6 @@
-﻿namespace LabApi.Core.Models;
+﻿using LabApi.Core.Models;
+
+namespace LabApi.Domain.Entities;
 
 public sealed class ClinicalTest
 {

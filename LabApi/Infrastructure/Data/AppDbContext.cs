@@ -1,4 +1,5 @@
 ﻿using LabApi.Core.Models;
+using LabApi.Domain.Entities;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
