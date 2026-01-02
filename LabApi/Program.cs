@@ -1,11 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
+using LabApi.Infrastructure.Data;
+
+using Microsoft.EntityFrameworkCore;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
+    dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
