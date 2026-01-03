@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LabApi.Application.Controllers;
+namespace LabApi.Controllers;
 
 [ApiController]
 [Route("api/v1/clinical-tests")]

@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace LabApi.Application.Controllers;
+namespace LabApi.Controllers;
 
 public class LabBaseController : ControllerBase
 {

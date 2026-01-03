@@ -1,6 +1,6 @@
 using LabApi.Domain;
 using LabApi.Infrastructure.Data;
-using LabApi.Seed;
+using LabApi.Infrastructure.Seed;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -37,12 +37,13 @@ if (app.Environment.IsDevelopment())
 
 if (app.Environment.IsDevelopment())
 {
-    using (var scope = app.Services.CreateScope())
+    using (IServiceScope scope = app.Services.CreateScope())
     {
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         await AppDbContextSeed.SeedAsync(context);
     }
 }
+
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

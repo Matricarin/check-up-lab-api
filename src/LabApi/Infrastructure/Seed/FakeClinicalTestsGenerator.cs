@@ -2,7 +2,7 @@
 
 using LabApi.Domain.Entities.ClinicalTestAggregate;
 
-namespace LabApi.Seed;
+namespace LabApi.Infrastructure.Seed;
 
 public static class FakeClinicalTestsGenerator
 {

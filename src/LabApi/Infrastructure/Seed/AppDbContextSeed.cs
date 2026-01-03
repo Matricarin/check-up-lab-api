@@ -3,7 +3,7 @@ using LabApi.Infrastructure.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace LabApi.Seed;
+namespace LabApi.Infrastructure.Seed;
 
 public static class AppDbContextSeed
 {
