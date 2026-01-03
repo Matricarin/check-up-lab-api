@@ -5,12 +5,12 @@ public sealed class NormalValue : ValueObject
     public int AgeFrom { get; private set; }
     public int AgeTo { get; private set; }
     public Sex Sex { get; private set; }
-    public string Unit { get; private set; }
+    public string MeasurementUnit { get; private set; }
     public decimal Value { get; private set; }
 
     private NormalValue() { }
 
-    public NormalValue(Sex sex, int ageFrom, int ageTo, string unit, decimal value)
+    public NormalValue(Sex sex, int ageFrom, int ageTo, string measurementUnit, decimal value)
     {
         if (ageTo <= 0)
         {
@@ -22,7 +22,7 @@ public sealed class NormalValue : ValueObject
             throw new ArgumentException();
         }
 
-        if (string.IsNullOrWhiteSpace(unit))
+        if (string.IsNullOrWhiteSpace(measurementUnit))
         {
             throw new ArgumentNullException();
         }
@@ -35,7 +35,7 @@ public sealed class NormalValue : ValueObject
         AgeFrom = ageFrom;
         AgeTo = ageTo;
         Sex = sex;
-        Unit = unit;
+        MeasurementUnit = measurementUnit;
         Value = value;
     }
 
@@ -44,7 +44,7 @@ public sealed class NormalValue : ValueObject
         yield return Sex;
         yield return AgeFrom;
         yield return AgeTo;
-        yield return Unit;
+        yield return MeasurementUnit;
         yield return Value;
     }
 }

@@ -51,27 +51,14 @@ public class AppDbContext : IdentityDbContext
                 nv.Property(m => m.Sex)
                     .IsRequired();
 
-                nv.OwnsOne(m => m.Unit, u =>
-                {
-                    u.Property(mu => mu.Code)
-                        .HasColumnName("MeasurementCode")
-                        .IsRequired();
+                nv.Property(mu => mu.MeasurementUnit)
+                    .IsRequired();
 
-                    u.Property(mu => mu.DisplayName)
-                        .HasColumnName("MeasurementName")
-                        .IsRequired();
-                });
+                nv.Property(ar => ar.AgeFrom)
+                    .IsRequired();
 
-                nv.OwnsOne(m => m.AgeRange, r =>
-                {
-                    r.Property(ar => ar.From)
-                        .HasColumnName("AgeFrom")
-                        .IsRequired();
-
-                    r.Property(ar => ar.To)
-                        .HasColumnName("AgeTo")
-                        .IsRequired();
-                });
+                nv.Property(ar => ar.AgeTo)
+                    .IsRequired();
             });
         });
     }

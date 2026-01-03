@@ -40,8 +40,9 @@ public sealed class ClinicalTest
     public void AddNormalValue(NormalValue value)
     {
         if (_normalValues.Any(v =>
-                v.Sex == value.Sex &&
-                v.AgeRange.Equals(value.AgeRange)))
+                v.Sex == value.Sex 
+                && v.AgeFrom.Equals(value.AgeFrom)
+                && v.AgeTo.Equals(value.AgeTo)))
         {
             throw new InvalidOperationException(
                 "Normal value for this age range and sex already exists.");
@@ -53,8 +54,9 @@ public sealed class ClinicalTest
     public void RemoveNormalValue(NormalValue value)
     {
         if (_normalValues.Any(v =>
-                v.Sex == value.Sex &&
-                v.AgeRange.Equals(value.AgeRange)))
+                v.Sex == value.Sex
+                && v.AgeFrom.Equals(value.AgeFrom)
+                && v.AgeTo.Equals(value.AgeTo)))
         {
             _normalValues.Remove(value);
         }

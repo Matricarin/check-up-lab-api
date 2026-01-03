@@ -32,10 +32,10 @@ public static class FakeClinicalTestsGenerator
     {
         var ageRanges = new[]
         {
-            new AgeRange(0, 12),
-            new AgeRange(13, 18),
-            new AgeRange(19, 60),
-            new AgeRange(61, 120)
+            (0, 12),
+            (13, 18),
+            (19, 60),
+            (61, 120)
         };
 
         foreach (var sex in Enum.GetValues<Sex>())
@@ -43,10 +43,11 @@ public static class FakeClinicalTestsGenerator
             foreach (var ageRange in ageRanges)
             {
                 var normalValue = new NormalValue(
-                    ageRange: ageRange,
-                    sex: sex,
-                    unit: MeasurementUnit.MgPerDl,
-                    value: faker.Random.Decimal(3, 15)
+                    sex,
+                    ageRange.Item1,
+                    ageRange.Item2,
+                    "ml",
+                    faker.Random.Decimal(3, 15)
                 );
 
                 clinicalTest.AddNormalValue(normalValue);

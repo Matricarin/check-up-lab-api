@@ -310,7 +310,7 @@ namespace LabApi.Migrations
                                         .HasForeignKey("NormalValueId");
                                 });
 
-                            b1.OwnsOne("LabApi.Domain.Entities.ClinicalTestAggregate.MeasurementUnit", "Unit", b2 =>
+                            b1.OwnsOne("LabApi.Domain.Entities.ClinicalTestAggregate.MeasurementUnit", "MeasurementUnit", b2 =>
                                 {
                                     b2.Property<int>("NormalValueId")
                                         .HasColumnType("integer");
@@ -336,7 +336,7 @@ namespace LabApi.Migrations
                             b1.Navigation("AgeRange")
                                 .IsRequired();
 
-                            b1.Navigation("Unit")
+                            b1.Navigation("MeasurementUnit")
                                 .IsRequired();
                         });
 
