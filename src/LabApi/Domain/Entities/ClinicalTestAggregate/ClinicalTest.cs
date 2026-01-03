@@ -3,6 +3,7 @@
 public sealed class ClinicalTest
 {
     private readonly List<NormalValue> _normalValues = new();
+
     public string Description { get; private set; }
 
     public int Id { get; private set; }
