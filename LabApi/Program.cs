@@ -13,7 +13,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
-    dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+{
+    dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+    if (builder.Environment.IsDevelopment())
+    {
+        dbContextBuilder.EnableDetailedErrors();
+        dbContextBuilder.EnableSensitiveDataLogging();
+    }
+});
+
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
