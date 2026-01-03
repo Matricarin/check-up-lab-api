@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using LabApi.Application.Dtos;
 namespace LabApi.Controllers;
 
 [ApiController]
@@ -7,23 +7,14 @@ namespace LabApi.Controllers;
 public sealed class ClinicalTestsController : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IReadOnlyList<ClinicalTestDto>>> GetAll()
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<ActionResult<ClinicalTestDetailsDto>> GetById(int id)
     {
         throw new NotImplementedException();
     }
-    
-    //  TODO: define post method for creation clinical test by admin
-    //  TODO: define dto for clinical test creation
-
-    //  TODO: define put method for updating clinical test by admin
-    //  TODO: define dto for clinical test update
-
-    //  TODO: define delete method for deleting clinical test by admin
-    //  TODO: define dto for clinical test delete
 }
