@@ -2,19 +2,38 @@
 
 public sealed class NormalValue : ValueObject
 {
-    public Sex Sex { get; set; }
-    public decimal Value { get; set; }
+    public int AgeFrom { get; private set; }
+    public int AgeTo { get; private set; }
+    public Sex Sex { get; private set; }
+    public string Unit { get; private set; }
+    public decimal Value { get; private set; }
 
     private NormalValue() { }
 
-    public NormalValue(AgeRange ageRange, Sex sex, MeasurementUnit unit, decimal value)
+    public NormalValue(Sex sex, int ageFrom, int ageTo, string unit, decimal value)
     {
+        if (ageTo <= 0)
+        {
+            throw new ArgumentException();
+        }
+
+        if (ageTo <= ageFrom)
+        {
+            throw new ArgumentException();
+        }
+
+        if (string.IsNullOrWhiteSpace(unit))
+        {
+            throw new ArgumentNullException();
+        }
+
         if (value <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(value));
         }
 
-        AgeRange = ageRange;
+        AgeFrom = ageFrom;
+        AgeTo = ageTo;
         Sex = sex;
         Unit = unit;
         Value = value;
@@ -22,8 +41,9 @@ public sealed class NormalValue : ValueObject
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return AgeRange;
         yield return Sex;
+        yield return AgeFrom;
+        yield return AgeTo;
         yield return Unit;
         yield return Value;
     }
