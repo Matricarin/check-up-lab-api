@@ -30,7 +30,7 @@ public sealed class ClinicalTest
 
         if (price <= 0)
         {
-            throw new ArgumentNullException("price");
+            throw new ArgumentException("price");
         }
 
         Name = name;
