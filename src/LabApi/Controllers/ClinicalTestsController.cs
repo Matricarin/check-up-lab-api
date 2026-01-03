@@ -1,32 +1,23 @@
-﻿using LabApi.Infrastructure.Data;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LabApi.Controllers;
 
 [ApiController]
 [Route("api/v1/clinical-tests")]
-public sealed class ClinicalTestsController : LabBaseController
+public sealed class ClinicalTestsController : ControllerBase
 {
-    public ClinicalTestsController(AppDbContext dbContext) : base(dbContext)
-    {
-    }
-
     [HttpGet]
-    public async Task<IActionResult> GetAllClinicalTests()
+    public async Task<IActionResult> GetAll()
     {
-        //  TODO: improve controller logic
-        return Ok(await _dbContext.ClinicalTests.ToListAsync());
+        throw new NotImplementedException();
     }
 
-    [HttpGet("id")]
-    public async Task<IActionResult> GetClinicalTest(int id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
     {
-        //  TODO: improve controller logic
-        return Ok(await _dbContext.ClinicalTests.FindAsync(id));
+        throw new NotImplementedException();
     }
-
+    
     //  TODO: define post method for creation clinical test by admin
     //  TODO: define dto for clinical test creation
 

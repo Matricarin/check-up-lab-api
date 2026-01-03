@@ -11,15 +11,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
 {
     dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
-    if (builder.Environment.IsDevelopment())
-    {
-        dbContextBuilder.EnableDetailedErrors();
-        dbContextBuilder.EnableSensitiveDataLogging();
-    }
 });
 
 
@@ -33,10 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
-}
 
-if (app.Environment.IsDevelopment())
-{
     using (IServiceScope scope = app.Services.CreateScope())
     {
         AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -45,5 +38,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseExceptionHandler();
 app.MapControllers();
 app.Run();
