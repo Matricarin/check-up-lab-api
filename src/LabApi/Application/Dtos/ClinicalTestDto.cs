@@ -2,7 +2,13 @@
 {
     public sealed class ClinicalTestDto
     {
-        public required string Name { get; set; }
-        public required decimal Price { get; set; }
+        public ClinicalTestDto(string name, decimal price)
+        {
+            Name = name;
+            Price = price;
+        }
+
+        public string Name { get; set; }
+        public decimal Price { get; set; }
     }
 }
