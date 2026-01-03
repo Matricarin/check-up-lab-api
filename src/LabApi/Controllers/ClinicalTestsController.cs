@@ -1,4 +1,6 @@
-﻿using LabApi.Application.Dtos;
+﻿using System.Net.Mime;
+
+using LabApi.Application.Dtos;
 using LabApi.Application.Interfaces;
 using LabApi.Shared;
 
@@ -18,6 +20,9 @@ public sealed class ClinicalTestsController : ControllerBase
     }
 
     [HttpGet]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(IReadOnlyList<ClinicalTestDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IReadOnlyList<ClinicalTestDto>>> GetAll()
     {
         IReadOnlyList<ClinicalTestDto> resultList = await _queryService.GetAllAsync();
@@ -31,6 +36,9 @@ public sealed class ClinicalTestsController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(ClinicalTestDetailsDto),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ClinicalTestDetailsDto>> GetById(int id)
     {
         ClinicalTestDetailsDto? result = await _queryService.GetByIdAsync(id);
