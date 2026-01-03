@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LabApi.Infrastructure.Data;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabApi.Application.Controllers
 {
-
-    [Route("api/[controller]")]
     [ApiController]
     public class LabBaseController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> SayHello()
+        protected readonly AppDbContext _dbContext;
+
+        public LabBaseController(AppDbContext dbContext)
         {
-            return Ok("Hello world");
+            _dbContext = dbContext;
         }
     }
 }
