@@ -34,6 +34,10 @@ public class AppDbContext : IdentityDbContext
                 .IsRequired()
                 .HasMaxLength(200);
 
+            b.Property(m => m.Description)
+                .IsRequired()
+                .HasMaxLength(200);
+
             b.Property(m => m.Price)
                 .HasPrecision(10, 2);
 

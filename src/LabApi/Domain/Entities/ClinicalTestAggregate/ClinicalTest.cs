@@ -2,7 +2,7 @@
 
 public sealed class ClinicalTest
 {
-    private readonly List<NormalValue> _normalValues = new();
+    private readonly List<NormalValue> _normalValues = [];
 
     public string Description { get; private set; }
 
