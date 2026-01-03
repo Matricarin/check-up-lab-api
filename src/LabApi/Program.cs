@@ -13,8 +13,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(gen =>
 {
-    gen.SwaggerDoc(ApiRoutes.Version1, new OpenApiInfo { Title = "Lab Api", Version = ApiRoutes.Version1 });
+    gen.SwaggerDoc(ApiRoutes.Version1, new OpenApiInfo
+    {
+        Title = "Lab Api", 
+        Version = ApiRoutes.Version1
+    });
 });
+
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
