@@ -1,6 +1,5 @@
 ﻿using LabApi.Domain;
 using LabApi.Domain.Entities.ClinicalTestAggregate;
-using LabApi.Seed;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

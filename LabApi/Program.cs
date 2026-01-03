@@ -35,12 +35,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
 {
-    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await AppDbContextSeed.SeedAsync(context);
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        await AppDbContextSeed.SeedAsync(context);
+    }
 }
-
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

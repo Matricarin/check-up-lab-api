@@ -2,8 +2,8 @@
 
 public sealed class MeasurementUnit : ValueObject
 {
-    public string Code { get; }
-    public string DisplayName { get; }
+    public string Code { get; private set; }
+    public string DisplayName { get; private set; }
 
     private MeasurementUnit(){ }
 

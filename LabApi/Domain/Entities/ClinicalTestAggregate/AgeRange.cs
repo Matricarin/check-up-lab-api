@@ -1,9 +1,9 @@
 ﻿namespace LabApi.Domain.Entities.ClinicalTestAggregate;
 
-public class AgeRange : ValueObject
+public sealed class AgeRange : ValueObject
 {
-    public int From { get; }
-    public int To { get; }
+    public int From { get; private set; }
+    public int To { get; private set; }
     
     private AgeRange(){}
 
