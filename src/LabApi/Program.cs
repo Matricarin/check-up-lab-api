@@ -1,3 +1,5 @@
+using LabApi.Application.Interfaces;
+using LabApi.Application.Services;
 using LabApi.Domain;
 using LabApi.Infrastructure.Data;
 using LabApi.Infrastructure.Seed;
@@ -31,6 +33,8 @@ builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddTransient<IClinicalTestQueryService, ClinicalTestQueryService>();
 
 WebApplication app = builder.Build();
 
