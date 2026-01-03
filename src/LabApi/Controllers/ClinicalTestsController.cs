@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LabApi.Application.Dtos;
+using LabApi.Shared;
+
 namespace LabApi.Controllers;
 
 [ApiController]
-[Route("api/v1/clinical-tests")]
+[Route($"api/{ApiRoutes.Version1}/clinical-tests")]
 public sealed class ClinicalTestsController : ControllerBase
 {
     [HttpGet]
