@@ -21,5 +21,19 @@ public sealed class ClinicalTestFixture
         Assert.Throws<ArgumentException>(() => new ClinicalTest("name", "desc", price));
     }
 
+    [Fact]
+    public void ShouldThrowWhenDuplicateExist()
+    {
+        var ct = new ClinicalTest("name", "desc", 10);
+        var normal = new NormalValue(Sex.Male, 10, 30, "ml", 20.3m);
+        ct.AddNormalValue(normal);
 
+        Assert.Throws<InvalidOperationException>(() => ct.AddNormalValue(normal));
+    }
+
+    [Fact]
+    public void ShouldRemoveNormalValue()
+    {
+        throw new NotImplementedException();
+    }
 }
