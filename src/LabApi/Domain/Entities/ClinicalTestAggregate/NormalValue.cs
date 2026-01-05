@@ -2,11 +2,11 @@
 
 public sealed class NormalValue : ValueObject
 {
-    public int AgeFrom { get; private set; }
-    public int AgeTo { get; private set; }
-    public Sex Sex { get; private set; }
-    public string MeasurementUnit { get; private set; }
-    public decimal Value { get; private set; }
+    public int AgeFrom { get; }
+    public int AgeTo { get; }
+    public string MeasurementUnit { get; }
+    public Sex Sex { get; }
+    public decimal Value { get; }
 
     private NormalValue() { }
 
@@ -14,17 +14,22 @@ public sealed class NormalValue : ValueObject
     {
         if (ageTo <= 0)
         {
-            throw new ArgumentException();
+            throw new ArgumentException(nameof(ageTo));
+        }
+
+        if (ageFrom < 0)
+        {
+            throw new ArgumentException(nameof(ageFrom));
         }
 
         if (ageTo <= ageFrom)
         {
-            throw new ArgumentException();
+            throw new ArgumentException(nameof(ageTo) + " is less then " + nameof(ageFrom));
         }
 
         if (string.IsNullOrWhiteSpace(measurementUnit))
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(measurementUnit));
         }
 
         if (value <= 0)
