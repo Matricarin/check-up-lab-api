@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabApi", "src\LabApi\LabApi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabApi.Unit", "tests\LabApi.Unit\LabApi.Unit.csproj", "{786C1E15-BF6C-4042-AFDC-0B14C3993E6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabApi.Integration", "tests\LabApi.Integration\LabApi.Integration.csproj", "{3BDA01FF-494F-4F54-829C-9EEC66D41CAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{786C1E15-BF6C-4042-AFDC-0B14C3993E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{786C1E15-BF6C-4042-AFDC-0B14C3993E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{786C1E15-BF6C-4042-AFDC-0B14C3993E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BDA01FF-494F-4F54-829C-9EEC66D41CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BDA01FF-494F-4F54-829C-9EEC66D41CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BDA01FF-494F-4F54-829C-9EEC66D41CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BDA01FF-494F-4F54-829C-9EEC66D41CAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6BDE90FB-45C7-1C2A-C3F8-73BD9BC60CD0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{786C1E15-BF6C-4042-AFDC-0B14C3993E6A} = {9CB326B2-357F-472B-9C75-D7DFDD144715}
+		{3BDA01FF-494F-4F54-829C-9EEC66D41CAF} = {9CB326B2-357F-472B-9C75-D7DFDD144715}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A1CCB52F-6797-45B7-8D05-D854B1BFDEB5}
