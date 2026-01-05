@@ -61,5 +61,9 @@ public sealed class ClinicalTest
         {
             _normalValues.Remove(value);
         }
+        else
+        {
+            throw new InvalidOperationException("Tried to remove not existed value.");
+        }
     }
 }
