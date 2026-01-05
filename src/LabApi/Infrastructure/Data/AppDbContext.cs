@@ -56,6 +56,7 @@ public class AppDbContext : IdentityDbContext
                     .IsRequired();
 
                 nv.Property(mu => mu.MeasurementUnit)
+                    .HasMaxLength(20)
                     .IsRequired();
 
                 nv.Property(ar => ar.AgeFrom)
