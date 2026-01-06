@@ -38,8 +38,7 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
             .And.BeOfType<ClinicalTestDto>()
             .Subject.Name.Should().Be("name");
     }
-
-
+    
     [Fact]
     public async Task GetClinicalTestById()
     {
@@ -54,13 +53,20 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
 
         ClinicalTestQueryService service = new(context);
 
-        IReadOnlyList<ClinicalTestDto> result = await service.GetAllAsync();
+        IReadOnlyList<ClinicalTestDto> resultFromDb = await service.GetAllAsync();
 
-        result.Should().HaveCount(4);
+        resultFromDb.Should().HaveCount(4);
 
-        result.FirstOrDefault().Should().NotBeNull()
-            .And.BeOfType<ClinicalTestDto>()
-            .Subject.Name.Should().Be("name");
+        ClinicalTestDto? secondItem = resultFromDb.FirstOrDefault(n => n.Name == "2");
+
+        secondItem.Should().NotBeNull();
+
+        ClinicalTestDetailsDto? secondFromDb = await service.GetByIdAsync(secondItem.Id);
+
+        secondFromDb.Should().NotBeNull();
+
+        secondFromDb.Should().BeOfType<ClinicalTestDetailsDto>()
+            .Subject.Name.Should().Be("2");
     }
 
     private static AppDbContext CreateDbContext(string connectionString)
