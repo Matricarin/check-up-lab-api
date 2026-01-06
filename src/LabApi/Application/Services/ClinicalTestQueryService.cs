@@ -1,5 +1,6 @@
 ﻿using LabApi.Application.Dtos;
 using LabApi.Application.Interfaces;
+using LabApi.Domain.Entities.ClinicalTestAggregate;
 using LabApi.Infrastructure.Data;
 
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,16 @@ public sealed class ClinicalTestQueryService : IClinicalTestQueryService
 
     public async Task<ClinicalTestDetailsDto?> GetByIdAsync(int id)
     {
-        var fromDb = await _db.ClinicalTests.FindAsync(id);
+        ClinicalTest? fromDb = await _db.ClinicalTests.AsNoTracking()
+            .Include(x => x.NormalValues)
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         if (fromDb == null)
         {
             return null;
         }
 
-        var result = new ClinicalTestDetailsDto()
+        ClinicalTestDetailsDto result = new()
         {
             Name = fromDb.Name,
             Description = fromDb.Description,
