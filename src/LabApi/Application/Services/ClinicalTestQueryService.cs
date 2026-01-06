@@ -20,7 +20,7 @@ public sealed class ClinicalTestQueryService : IClinicalTestQueryService
     {
         return await _db.ClinicalTests
             .AsNoTracking()
-            .Select(fromDb => new ClinicalTestDto(fromDb.Name, fromDb.Price))
+            .Select(fromDb => new ClinicalTestDto(fromDb.Id, fromDb.Name, fromDb.Price))
             .ToListAsync();
     }
 

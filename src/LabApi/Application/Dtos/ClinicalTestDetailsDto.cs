@@ -2,11 +2,11 @@
 
 namespace LabApi.Application.Dtos
 {
-    public sealed class ClinicalTestDetailsDto
+    public sealed record ClinicalTestDetailsDto
     {
-        public required string Name { get; set; }
-        public required string Description { get; set; }
-        public required decimal Price { get; set; }
-        public required NormalValue[] NormalValues { get; set; }
+        public required string Name { get; init; }
+        public required string Description { get; init; }
+        public required decimal Price { get; init; }
+        public required NormalValue[] NormalValues { get; init; }
     }
 }
