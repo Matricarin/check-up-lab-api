@@ -4,15 +4,15 @@ public sealed class ClinicalTest
 {
     private readonly List<NormalValue> _normalValues = [];
 
-    public string Description { get; private set; }
+    public string Description { get; }
 
     public int Id { get; private set; }
 
-    public string Name { get; private set; }
+    public string Name { get; }
 
     public IReadOnlyCollection<NormalValue> NormalValues => _normalValues;
 
-    public decimal Price { get; private set; }
+    public decimal Price { get; }
 
     private ClinicalTest() { }
 
@@ -38,10 +38,20 @@ public sealed class ClinicalTest
         Price = price;
     }
 
+    public override bool Equals(object? obj)
+    {
+        return ReferenceEquals(this, obj) || (obj is ClinicalTest other && Equals(other));
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Description, Name, Price);
+    }
+
     public void AddNormalValue(NormalValue value)
     {
         if (_normalValues.Any(v =>
-                v.Sex == value.Sex 
+                v.Sex == value.Sex
                 && v.AgeFrom.Equals(value.AgeFrom)
                 && v.AgeTo.Equals(value.AgeTo)))
         {
@@ -65,5 +75,10 @@ public sealed class ClinicalTest
         {
             throw new InvalidOperationException("Tried to remove not existed value.");
         }
+    }
+
+    private bool Equals(ClinicalTest other)
+    {
+        return Description == other.Description && Name == other.Name && Price == other.Price;
     }
 }
