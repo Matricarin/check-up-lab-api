@@ -2,6 +2,7 @@
 
 namespace LabApi.Integration.Fixtures;
 
+[CollectionDefinition("Postgres")]
 public sealed class PostgresFixture : IAsyncLifetime
 {
     public PostgreSqlContainer Container { get; } = new PostgreSqlBuilder()

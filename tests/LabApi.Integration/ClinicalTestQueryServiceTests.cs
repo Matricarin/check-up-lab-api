@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 
 using LabApi.Application.Dtos;
-using LabApi.Application.Interfaces;
 using LabApi.Application.Services;
 using LabApi.Domain.Entities.ClinicalTestAggregate;
 using LabApi.Infrastructure.Data;
@@ -11,32 +10,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LabApi.Integration;
 
+[Collection("Postgres")]
 public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixture>
 {
     private readonly PostgresFixture _fixture;
-    private readonly IClinicalTestQueryService _service;
 
     public ClinicalTestQueryServiceTests(PostgresFixture fixture)
     {
         _fixture = fixture;
-        using AppDbContext context = CreateDbContext(_fixture.Container.GetConnectionString());
-
-        context.ClinicalTests.Add(new ClinicalTest("1", "desc", 10m));
-        context.ClinicalTests.Add(new ClinicalTest("2", "desc", 10m));
-        context.ClinicalTests.Add(new ClinicalTest("3", "desc", 10m));
-        context.ClinicalTests.Add(new ClinicalTest("4", "desc", 10m));
-
-        context.SaveChanges();
-
-        _service = new ClinicalTestQueryService(context);
     }
 
     [Fact]
     public async Task GetAllClinicalTests()
     {
-        await using AppDbContext context = CreateDbContext(_fixture.Container.GetConnectionString());
+        using AppDbContext context = CreateContext();
+        Seed(context);
 
-        IReadOnlyList<ClinicalTestDto> result = await _service.GetAllAsync();
+        ClinicalTestQueryService service = new(context);
+
+        IReadOnlyList<ClinicalTestDto> result = await service.GetAllAsync();
 
         result.Should().HaveCount(4);
     }
@@ -44,27 +36,39 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
     [Fact]
     public async Task GetClinicalTestById()
     {
-        IReadOnlyList<ClinicalTestDto> resultFromDb = await _service.GetAllAsync();
+        using AppDbContext context = CreateContext();
+        Seed(context);
 
-        ClinicalTestDto? secondItem = resultFromDb.FirstOrDefault(n => n.Name == "2");
+        ClinicalTestQueryService service = new(context);
 
-        secondItem.Should().NotBeNull();
+        ClinicalTestDto second =
+            (await service.GetAllAsync()).Single(x => x.Name == "2");
 
-        ClinicalTestDetailsDto? secondFromDb = await _service.GetByIdAsync(secondItem.Id);
+        ClinicalTestDetailsDto? details =
+            await service.GetByIdAsync(second.Id);
 
-        secondFromDb.Should().NotBeNull();
-
-        secondFromDb.Should().BeOfType<ClinicalTestDetailsDto>()
-            .Subject.Name.Should().Be("2");
+        details.Should().NotBeNull();
+        details!.Name.Should().Be("2");
     }
 
     [Fact]
     public async Task GetClinicalTestByIdReturnNull()
     {
-        ClinicalTestDetailsDto? secondFromDb = await _service.GetByIdAsync(10000);
+        using AppDbContext context = CreateContext();
+        Seed(context);
 
-        secondFromDb.Should().BeNull();
+        ClinicalTestQueryService service = new(context);
+
+        ClinicalTestDetailsDto? result = await service.GetByIdAsync(9999);
+
+        result.Should().BeNull();
     }
+
+    private AppDbContext CreateContext()
+    {
+        return CreateDbContext(_fixture.Container.GetConnectionString());
+    }
+
 
     private static AppDbContext CreateDbContext(string connectionString)
     {
@@ -77,5 +81,20 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
         context.Database.Migrate();
 
         return context;
+    }
+
+    private static void Seed(AppDbContext context)
+    {
+        context.Database.EnsureDeleted();
+        context.Database.Migrate();
+
+        context.ClinicalTests.AddRange(
+            new ClinicalTest("1", "desc", 10m),
+            new ClinicalTest("2", "desc", 10m),
+            new ClinicalTest("3", "desc", 10m),
+            new ClinicalTest("4", "desc", 10m)
+        );
+
+        context.SaveChanges();
     }
 }
