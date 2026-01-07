@@ -25,6 +25,8 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
+//  TODO: add user manager and role manager in services
+
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
 {
     dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
