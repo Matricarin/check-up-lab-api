@@ -25,7 +25,11 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
-//  TODO: configure password properties
+builder.Services.Configure<IdentityOptions>(opt =>
+{
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireDigit = true;
+});
 
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
 {
