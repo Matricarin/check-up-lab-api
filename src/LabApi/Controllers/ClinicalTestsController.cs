@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-
-using LabApi.Application.Dtos.ClinicalTest;
+﻿using LabApi.Application.Dtos.ClinicalTest;
 using LabApi.Application.Interfaces;
 using LabApi.Shared;
 
@@ -37,7 +35,7 @@ public sealed class ClinicalTestsController : ControllerBase
 
     [HttpGet("{id:int}")]
     [Produces("application/json")]
-    [ProducesResponseType(typeof(ClinicalTestDetailsResponseDto),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ClinicalTestDetailsResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ClinicalTestDetailsResponseDto>> GetById(int id)
     {

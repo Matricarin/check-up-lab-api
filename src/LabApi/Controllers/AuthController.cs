@@ -1,4 +1,5 @@
-﻿using LabApi.Application.Dtos.Register;
+﻿using LabApi.Application.Dtos.Login;
+using LabApi.Application.Dtos.Register;
 using LabApi.Shared;
 
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,14 @@ public class AuthController : ControllerBase
 {
     [HttpPost]
     [Produces("application/json")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpPost]
+    [Produces("application/json")]
+    public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
     {
         throw new NotImplementedException();
     }
