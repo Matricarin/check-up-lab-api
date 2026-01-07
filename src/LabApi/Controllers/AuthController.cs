@@ -10,14 +10,14 @@ namespace LabApi.Controllers;
 [Route($"api/{ApiRoutes.Version1}/auth")]
 public class AuthController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("register")]
     [Produces("application/json")]
     public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
     {
         throw new NotImplementedException();
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [Produces("application/json")]
     public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
     {
