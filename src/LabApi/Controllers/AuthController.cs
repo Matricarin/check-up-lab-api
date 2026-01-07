@@ -1,10 +1,9 @@
-﻿using System.Security.Claims;
-
-using LabApi.Application.Dtos.Login;
+﻿using LabApi.Application.Dtos.Login;
 using LabApi.Application.Dtos.Register;
 using LabApi.Application.Interfaces;
 using LabApi.Shared;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabApi.Controllers;
@@ -24,10 +23,10 @@ public class AuthController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [AllowAnonymous]
     public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
     {
-        var response = await _authService.LoginUser(request);
+        LoginResponseDto? response = await _authService.LoginUser(request);
 
         if (response == null)
         {
@@ -41,9 +40,10 @@ public class AuthController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(RegisterResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [AllowAnonymous]
     public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
     {
-        var response = await _authService.CreateUser(request);
+        RegisterResponseDto? response = await _authService.CreateUser(request);
 
         if (response == null)
         {
