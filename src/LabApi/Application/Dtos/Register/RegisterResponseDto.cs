@@ -1,6 +1,7 @@
 ﻿namespace LabApi.Application.Dtos.Register;
 
-public class RegisterResponseDto
+public sealed record RegisterResponseDto
 {
-    
+    public string AccessToken { get; init; } = null!;
+    public DateTime ExpiresAt { get; init; }
 }

@@ -1,6 +1,14 @@
-﻿namespace LabApi.Application.Dtos.Register;
+﻿using System.ComponentModel.DataAnnotations;
 
-public sealed record RegisterRequestDto(string DisplayName ,string Email, string Password)
+namespace LabApi.Application.Dtos.Register;
+
+public sealed record RegisterRequestDto
 {
-    
+    [Required] [Compare(nameof(Password))] public string ConfirmPassword { get; init; } = null!;
+
+    [Required] public string DisplayName { get; init; } = null!;
+
+    [Required] [EmailAddress] public string Email { get; init; } = null!;
+
+    [Required] [MinLength(8)] public string Password { get; init; } = null!;
 }
