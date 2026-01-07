@@ -41,6 +41,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient<IClinicalTestQueryService, ClinicalTestQueryService>();
+builder.Services.AddScoped<IJwtGenerationService, JwtGenerationService>();
 
 WebApplication app = builder.Build();
 
