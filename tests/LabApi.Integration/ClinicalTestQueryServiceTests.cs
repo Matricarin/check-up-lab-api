@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 
-using LabApi.Application.Dtos;
+using LabApi.Application.Dtos.ClinicalTest;
 using LabApi.Application.Services;
 using LabApi.Domain.Entities.ClinicalTestAggregate;
 using LabApi.Infrastructure.Data;
@@ -28,7 +28,7 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
 
         ClinicalTestQueryService service = new(context);
 
-        IReadOnlyList<ClinicalTestDto> result = await service.GetAllAsync();
+        IReadOnlyList<ClinicalTestResponseDto> result = await service.GetAllAsync();
 
         result.Should().HaveCount(4);
     }
@@ -41,10 +41,10 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
 
         ClinicalTestQueryService service = new(context);
 
-        ClinicalTestDto second =
+        ClinicalTestResponseDto second =
             (await service.GetAllAsync()).Single(x => x.Name == "2");
 
-        ClinicalTestDetailsDto? details =
+        ClinicalTestDetailsResponseDto? details =
             await service.GetByIdAsync(second.Id);
 
         details.Should().NotBeNull();
@@ -59,7 +59,7 @@ public sealed class ClinicalTestQueryServiceTests : IClassFixture<PostgresFixtur
 
         ClinicalTestQueryService service = new(context);
 
-        ClinicalTestDetailsDto? result = await service.GetByIdAsync(9999);
+        ClinicalTestDetailsResponseDto? result = await service.GetByIdAsync(9999);
 
         result.Should().BeNull();
     }

@@ -1,8 +1,8 @@
 ﻿using LabApi.Domain.Entities.ClinicalTestAggregate;
 
-namespace LabApi.Application.Dtos
+namespace LabApi.Application.Dtos.ClinicalTest
 {
-    public sealed record ClinicalTestDetailsDto
+    public sealed record ClinicalTestDetailsResponseDto
     {
         public required string Name { get; init; }
         public required string Description { get; init; }

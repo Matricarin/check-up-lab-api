@@ -1,4 +1,4 @@
-﻿using LabApi.Application.Dtos;
+﻿using LabApi.Application.Dtos.ClinicalTest;
 using LabApi.Application.Interfaces;
 using LabApi.Domain.Entities.ClinicalTestAggregate;
 using LabApi.Infrastructure.Data;
@@ -16,15 +16,15 @@ public sealed class ClinicalTestQueryService : IClinicalTestQueryService
         _db = db;
     }
 
-    public async Task<IReadOnlyList<ClinicalTestDto>> GetAllAsync()
+    public async Task<IReadOnlyList<ClinicalTestResponseDto>> GetAllAsync()
     {
         return await _db.ClinicalTests
             .AsNoTracking()
-            .Select(fromDb => new ClinicalTestDto(fromDb.Id, fromDb.Name, fromDb.Price))
+            .Select(fromDb => new ClinicalTestResponseDto(fromDb.Id, fromDb.Name, fromDb.Price))
             .ToListAsync();
     }
 
-    public async Task<ClinicalTestDetailsDto?> GetByIdAsync(int id)
+    public async Task<ClinicalTestDetailsResponseDto?> GetByIdAsync(int id)
     {
         ClinicalTest? fromDb = await _db.ClinicalTests.AsNoTracking()
             .Include(x => x.NormalValues)
@@ -35,7 +35,7 @@ public sealed class ClinicalTestQueryService : IClinicalTestQueryService
             return null;
         }
 
-        ClinicalTestDetailsDto result = new()
+        ClinicalTestDetailsResponseDto result = new()
         {
             Name = fromDb.Name,
             Description = fromDb.Description,
