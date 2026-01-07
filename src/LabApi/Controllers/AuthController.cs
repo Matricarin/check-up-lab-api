@@ -23,36 +23,26 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     [Produces("application/json")]
     [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto? request)
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
     {
-        if (request == null)
-        {
-            return BadRequest();
-        }
-
         var response = await _authService.LoginUser(request);
 
         if (response == null)
         {
-            return Forbid();
+            return Unauthorized();
         }
 
-        return SignIn(new ClaimsPrincipal());
+        return Ok(response);
     }
 
     [HttpPost("register")]
     [Produces("application/json")]
     [ProducesResponseType(typeof(RegisterResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto? request)
+    public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
     {
-        if (request == null)
-        {
-            return BadRequest();
-        }
-
         var response = await _authService.CreateUser(request);
 
         if (response == null)
@@ -60,6 +50,6 @@ public class AuthController : ControllerBase
             return BadRequest();
         }
 
-        return Created("register", response);
+        return CreatedAtAction(nameof(Register), response);
     }
 }
