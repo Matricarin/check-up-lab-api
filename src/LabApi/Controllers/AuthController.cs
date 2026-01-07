@@ -1,10 +1,10 @@
-﻿using LabApi.Application.Dtos.Login;
+﻿using System.Security.Claims;
+
+using LabApi.Application.Dtos.Login;
 using LabApi.Application.Dtos.Register;
 using LabApi.Application.Interfaces;
-using LabApi.Domain;
 using LabApi.Shared;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabApi.Controllers;
@@ -20,17 +20,32 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("register")]
-    [Produces("application/json")]
-    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
-    {
-        throw new NotImplementedException();
-    }
-
     [HttpPost("login")]
     [Produces("application/json")]
-    public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
+    [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto? request)
     {
-        throw new NotImplementedException();
+        //  TODO: update controller
+        if (request == null)
+        {
+            return BadRequest();
+        }
+
+        var response = await _authService.LoginUser(request);
+        return SignIn(new ClaimsPrincipal());
+    }
+
+    [HttpPost("register")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(RegisterResponseDto), StatusCodes.Status201Created)]
+    public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto? request)
+    {
+        //  TODO: update controller
+        if (request == null)
+        {
+            return BadRequest();
+        }
+        var response = await _authService.CreateUser(request);
+        return Created("register", response);
     }
 }
