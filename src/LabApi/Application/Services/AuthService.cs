@@ -25,12 +25,12 @@ public sealed class AuthService : IAuthService
         this._jwtGenerationService = jwtGenerationService;
     }
 
-    public Task<RegisterResponseDto> CreateUser(RegisterRequestDto request)
+    public async Task<RegisterResponseDto?> CreateUser(RegisterRequestDto request)
     {
         throw new NotImplementedException();
     }
 
-    public Task<LoginResponseDto> LoginUser(LoginRequestDto request)
+    public async Task<LoginResponseDto?> LoginUser(LoginRequestDto request)
     {
         throw new NotImplementedException();
     }

@@ -5,6 +5,6 @@ namespace LabApi.Application.Interfaces;
 
 public interface IAuthService
 {
-    Task<RegisterResponseDto> CreateUser(RegisterRequestDto request);
-    Task<LoginResponseDto> LoginUser(LoginRequestDto request);
+    Task<RegisterResponseDto?> CreateUser(RegisterRequestDto request);
+    Task<LoginResponseDto?> LoginUser(LoginRequestDto request);
 }
