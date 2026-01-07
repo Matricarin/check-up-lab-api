@@ -25,8 +25,6 @@ builder.Services.AddSwaggerGen(gen =>
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
-//  TODO: add user manager and role manager in services
-
 //  TODO: configure password properties
 
 builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
@@ -48,10 +46,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 
-    using (IServiceScope scope = app.Services.CreateScope())
+    using (IServiceScope seedingScope = app.Services.CreateScope())
     {
-        AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        AppDbContext context = seedingScope.ServiceProvider.GetRequiredService<AppDbContext>();
         await AppDbContextSeed.SeedAsync(context);
+    }
+
+    using (IServiceScope roleScope = app.Services.CreateScope())
+    {
+        var roleManager = roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        foreach (var role in ApiRoles.AllRoles)
+        {
+            if (! await roleManager.RoleExistsAsync(role))
+            {
+               await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
     }
 }
 
