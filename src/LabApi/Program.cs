@@ -1,6 +1,7 @@
 using LabApi.Application.Interfaces;
 using LabApi.Application.Services;
 using LabApi.Domain;
+using LabApi.Extensions;
 using LabApi.Infrastructure.Data;
 using LabApi.Infrastructure.Seed;
 using LabApi.Shared;
@@ -13,14 +14,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(gen =>
-{
-    gen.SwaggerDoc(ApiRoutes.Version1, new OpenApiInfo
-    {
-        Title = "Lab Api", 
-        Version = ApiRoutes.Version1
-    });
-});
+builder.Services.AddSwaggerConfiguration();
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
