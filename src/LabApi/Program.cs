@@ -27,5 +27,5 @@ app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseCors(ApiPolicy.CorsPolicyName);
+app.UseCors(ApiCorsPolicy.CorsPolicyName);
 app.Run();

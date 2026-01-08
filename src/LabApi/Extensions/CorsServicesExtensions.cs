@@ -8,7 +8,7 @@ public static class CorsServicesExtensions
     {
         services.AddCors(opt =>
         {
-            opt.AddPolicy(ApiPolicy.CorsPolicyName, policy =>
+            opt.AddPolicy(ApiCorsPolicy.CorsPolicyName, policy =>
             {
                 policy.WithOrigins("https://localhost:5137")
                     .AllowAnyHeader()

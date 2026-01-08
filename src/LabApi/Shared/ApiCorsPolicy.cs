@@ -2,7 +2,7 @@
 
 namespace LabApi.Shared;
 
-public static class ApiPolicy
+public static class ApiCorsPolicy
 {
     public const string CorsPolicyName = "LabApiCorsPolicy";
 }

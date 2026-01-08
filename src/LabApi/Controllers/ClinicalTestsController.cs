@@ -2,6 +2,7 @@
 using LabApi.Application.Interfaces;
 using LabApi.Shared;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LabApi.Controllers;
@@ -21,6 +22,7 @@ public sealed class ClinicalTestsController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(IReadOnlyList<ClinicalTestResponseDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = ApiPermissions.ClinicalTestsRead)]
     public async Task<ActionResult<IReadOnlyList<ClinicalTestResponseDto>>> GetAll()
     {
         IReadOnlyList<ClinicalTestResponseDto> resultList = await _queryService.GetAllAsync();
@@ -37,6 +39,7 @@ public sealed class ClinicalTestsController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(ClinicalTestDetailsResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Policy = ApiPermissions.ClinicalTestsRead)]
     public async Task<ActionResult<ClinicalTestDetailsResponseDto>> GetById(int id)
     {
         ClinicalTestDetailsResponseDto? result = await _queryService.GetByIdAsync(id);
