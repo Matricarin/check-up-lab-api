@@ -13,8 +13,8 @@ builder.Services.AddIdentityConfiguration();
 builder.Services.AddDatabaseContext(builder.Configuration);
 builder.Services.AddIdentityStorage();
 builder.Services.AddApiServices();
+builder.Services.AddAuthenticationService(builder.Configuration);
 builder.Services.AddAuthorizationService();
-builder.Services.AddAuthenticationService();
 
 WebApplication app = builder.Build();
 
