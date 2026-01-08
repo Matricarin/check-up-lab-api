@@ -4,5 +4,5 @@ namespace LabApi.Application.Interfaces;
 
 public interface IJwtGenerationService
 {
-    string GenerateJwtToken(AppUser user, IList<string> roles);
+    string GenerateJwtToken(AppUser user, IList<string> roles, IList<string> permissions);
 }
