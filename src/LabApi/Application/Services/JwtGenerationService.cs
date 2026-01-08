@@ -1,4 +1,6 @@
-﻿using LabApi.Application.Interfaces;
+﻿using System.IdentityModel.Tokens.Jwt;
+
+using LabApi.Application.Interfaces;
 using LabApi.Domain;
 
 namespace LabApi.Application.Services;
@@ -14,6 +16,12 @@ public sealed class JwtGenerationService : IJwtGenerationService
 
     public string GenerateJwtToken(AppUser user, IList<string> roles)
     {
-        throw new NotImplementedException();
+        JwtSecurityTokenHandler jwtHandler = new();
+        
+        JwtSecurityToken token = new();
+
+        string? jwt = jwtHandler.WriteToken(token);
+
+        return jwt;
     }
 }
