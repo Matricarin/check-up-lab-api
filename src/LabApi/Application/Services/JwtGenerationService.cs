@@ -11,7 +11,7 @@ public sealed class JwtGenerationService : IJwtGenerationService
 
     public JwtGenerationService(IConfiguration configuration)
     {
-        _secretKey = configuration["AuthConfiguration:Secret"];
+        _secretKey = configuration["Auth:Secret"];
     }
 
     public string GenerateJwtToken(AppUser user, IList<string> roles)

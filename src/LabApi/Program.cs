@@ -1,12 +1,9 @@
 using LabApi.Extensions;
-using LabApi.Infrastructure.Data;
-using LabApi.Infrastructure.Seed;
 using LabApi.Shared;
-
-using Microsoft.AspNetCore.Identity;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.CheckAuth();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
@@ -19,32 +16,9 @@ builder.Services.AddApiServices();
 
 WebApplication app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapOpenApi();
+app.UseCustomSwagger();
 
-    using (IServiceScope seedingScope = app.Services.CreateScope())
-    {
-        AppDbContext context = seedingScope.ServiceProvider.GetRequiredService<AppDbContext>();
-        await AppDbContextSeed.SeedAsync(context);
-    }
-
-    using (IServiceScope roleScope = app.Services.CreateScope())
-    {
-        RoleManager<IdentityRole> roleManager =
-            roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        foreach (string role in ApiRoles.AllRoles)
-        {
-            if (!await roleManager.RoleExistsAsync(role))
-            {
-                await roleManager.CreateAsync(new IdentityRole(role));
-            }
-        }
-    }
-}
+await app.CreateDevelopmentScopes();
 
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
