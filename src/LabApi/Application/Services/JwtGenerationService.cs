@@ -6,6 +6,7 @@ using LabApi.Application.Interfaces;
 using LabApi.Domain;
 using LabApi.Shared;
 
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LabApi.Application.Services;
@@ -17,12 +18,12 @@ public sealed class JwtGenerationService : IJwtGenerationService
     private readonly string? _issuer;
     private readonly string? _secretKey;
 
-    public JwtGenerationService(IConfiguration configuration)
+    public JwtGenerationService(IOptions<AuthOptions> options)
     {
-        _secretKey = configuration["Auth:Secret"];
-        _issuer = configuration["Auth:Issuer"];
-        _audience = configuration["Auth:Audience"];
-        _expirationMinutes = int.Parse(configuration["Auth:TokenLifetimeMinutes"] ?? "30");
+        _secretKey = options.Value.Secret;
+        _issuer = options.Value.Issuer;
+        _audience = options.Value.Audience;
+        _expirationMinutes = options.Value.TokenLifetimeMinutes;
     }
 
     public string GenerateJwtToken(AppUser user, IList<string> roles, IList<string> permissions)
