@@ -15,7 +15,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
-
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
@@ -25,11 +24,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
     opt.Password.RequireDigit = true;
 });
 
-builder.Services.AddDbContext<AppDbContext>(dbContextBuilder =>
-{
-    dbContextBuilder.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
-});
-
+builder.Services.AddDatabaseContext(builder.Configuration);
 
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
