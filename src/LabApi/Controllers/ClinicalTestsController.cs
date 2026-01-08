@@ -22,6 +22,7 @@ public sealed class ClinicalTestsController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(IReadOnlyList<ClinicalTestResponseDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize(Policy = ApiPermissions.ClinicalTestsRead)]
     public async Task<ActionResult<IReadOnlyList<ClinicalTestResponseDto>>> GetAll()
     {
@@ -39,6 +40,7 @@ public sealed class ClinicalTestsController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(typeof(ClinicalTestDetailsResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize(Policy = ApiPermissions.ClinicalTestsRead)]
     public async Task<ActionResult<ClinicalTestDetailsResponseDto>> GetById(int id)
     {
