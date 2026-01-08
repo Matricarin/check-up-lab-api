@@ -21,7 +21,7 @@ public static class IdentityServicesExtensions
     public static IServiceCollection AddIdentityStorage(this IServiceCollection services)
     {
         services.AddIdentity<AppUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppDbContext>()
+            .AddEntityFrameworkStores<AppDbContext>();
         return services;
     }
 }
