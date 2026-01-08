@@ -17,18 +17,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
-
-builder.Services.Configure<IdentityOptions>(opt =>
-{
-    opt.Password.RequiredLength = 8;
-    opt.Password.RequireDigit = true;
-});
-
+builder.Services.AddIdentityConfiguration();
 builder.Services.AddDatabaseContext(builder.Configuration);
-
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>();
-
+builder.Services.AddIdentityStorage();
 builder.Services.AddApiServices();
 
 WebApplication app = builder.Build();

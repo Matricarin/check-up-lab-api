@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace LabApi.Extensions;
 
-public static class SwaggerGenExtensions
+public static class SwaggerGenServicesExtensions
 {
     public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
     {
