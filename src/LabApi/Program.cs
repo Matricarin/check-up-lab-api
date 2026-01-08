@@ -1,14 +1,9 @@
-using LabApi.Application.Interfaces;
-using LabApi.Application.Services;
-using LabApi.Domain;
 using LabApi.Extensions;
 using LabApi.Infrastructure.Data;
 using LabApi.Infrastructure.Seed;
 using LabApi.Shared;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +20,7 @@ builder.Services.AddApiServices();
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -38,13 +34,14 @@ if (app.Environment.IsDevelopment())
 
     using (IServiceScope roleScope = app.Services.CreateScope())
     {
-        var roleManager = roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        RoleManager<IdentityRole> roleManager =
+            roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        foreach (var role in ApiRoles.AllRoles)
+        foreach (string role in ApiRoles.AllRoles)
         {
-            if (! await roleManager.RoleExistsAsync(role))
+            if (!await roleManager.RoleExistsAsync(role))
             {
-               await roleManager.CreateAsync(new IdentityRole(role));
+                await roleManager.CreateAsync(new IdentityRole(role));
             }
         }
     }
@@ -53,4 +50,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
 app.MapControllers();
+app.UseCors(ApiPolicy.CorsPolicyName);
 app.Run();
