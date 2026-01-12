@@ -59,6 +59,7 @@ public sealed class AuthService : IAuthService
 
         if (user == null)
         {
+            //  TODO: add logging
             return null;
         }
 
@@ -66,6 +67,7 @@ public sealed class AuthService : IAuthService
 
         if (!result.Succeeded)
         {
+            //  TODO: add logging
             return null;
         }
 
