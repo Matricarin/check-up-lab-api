@@ -13,6 +13,9 @@ public static class IdentityServicesExtensions
         {
             opt.Password.RequiredLength = 8;
             opt.Password.RequireDigit = true;
+            opt.Lockout.MaxFailedAccessAttempts = 3;
+            opt.Lockout.AllowedForNewUsers = true;
+            opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
         });
 
         return services;

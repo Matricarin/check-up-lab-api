@@ -26,7 +26,7 @@ public sealed class JwtGenerationService : IJwtGenerationService
         _expirationMinutes = options.Value.TokenLifetimeMinutes;
     }
 
-    public string GenerateJwtToken(AppUser user, IList<string> roles, IList<string> permissions)
+    public JwtTokenResult GenerateJwtToken(AppUser user, IList<string> roles, IList<string> permissions)
     {
         JwtSecurityTokenHandler jwtHandler = new();
 
@@ -43,11 +43,12 @@ public sealed class JwtGenerationService : IJwtGenerationService
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
         claims.AddRange(permissions.Select(permission => new Claim(ApiPermissions.PermissionClaimType, permission)));
 
+        var expires = DateTime.Now.AddMinutes((double)_expirationMinutes!);
 
         SecurityTokenDescriptor descriptor = new()
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddMinutes((double)_expirationMinutes!),
+            Expires = expires,
             Issuer = _issuer,
             Audience = _audience,
             SigningCredentials =
@@ -58,6 +59,6 @@ public sealed class JwtGenerationService : IJwtGenerationService
 
         string? jwt = jwtHandler.WriteToken(token);
 
-        return jwt;
+        return new JwtTokenResult(jwt, expires);
     }
 }

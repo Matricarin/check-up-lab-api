@@ -13,17 +13,14 @@ namespace LabApi.Application.Services;
 public sealed class AuthService : IAuthService
 {
     private readonly IJwtGenerationService _jwtGenerationService;
-    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly UserManager<AppUser> _userManager;
 
     public AuthService(UserManager<AppUser> userManager,
-        RoleManager<IdentityRole> roleManager,
         SignInManager<AppUser> signInManager,
         IJwtGenerationService jwtGenerationService)
     {
         _userManager = userManager;
-        _roleManager = roleManager;
         _signInManager = signInManager;
         _jwtGenerationService = jwtGenerationService;
     }
@@ -44,11 +41,14 @@ public sealed class AuthService : IAuthService
         await _userManager.AddClaimsAsync(appUser,
             ApiPermissions.DefaultPermissions.Select(p => new Claim(ApiPermissions.PermissionClaimType, p)));
 
-        string token = _jwtGenerationService.GenerateJwtToken(appUser, new List<string> { ApiRoles.DefaultRole },
+        JwtTokenResult jwtTokenResult = _jwtGenerationService.GenerateJwtToken(appUser, 
+            new List<string> { ApiRoles.DefaultRole },
             ApiPermissions.DefaultPermissions.ToList());
 
-        RegisterResponseDto
-            response = new() { AccessToken = token, ExpiresAt =  }; //  TODO: in appsettings i am written earlier
+        RegisterResponseDto response = new()
+            {
+                AccessToken = jwtTokenResult.Token, ExpiresAt = jwtTokenResult.ExpiresAt
+            }; 
 
         return response;
     }
@@ -65,6 +65,12 @@ public sealed class AuthService : IAuthService
 
         SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
 
+        if (result.IsLockedOut)
+        {
+            //  TODO: add logging
+            return null;
+        }
+
         if (!result.Succeeded)
         {
             //  TODO: add logging
@@ -78,10 +84,12 @@ public sealed class AuthService : IAuthService
             .Select(c => c.Value)
             .ToList();
 
-        string token = _jwtGenerationService.GenerateJwtToken(user, role, permissions);
+        JwtTokenResult jwtTokenResult = _jwtGenerationService.GenerateJwtToken(user, role, permissions);
 
-        LoginResponseDto
-            response = new() { AccessToken = token, ExpiresAt =  }; //  TODO: in appsettings i am written earlier
+        LoginResponseDto response = new()
+            {
+                AccessToken = jwtTokenResult.Token, ExpiresAt = jwtTokenResult.ExpiresAt
+            };
 
         return response;
     }
