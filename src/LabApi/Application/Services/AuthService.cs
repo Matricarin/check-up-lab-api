@@ -27,7 +27,12 @@ public sealed class AuthService : IAuthService
 
     public async Task<RegisterResponseDto?> CreateUser(RegisterRequestDto request)
     {
-        AppUser appUser = new() { DisplayName = request.DisplayName, UserName = request.Email, Email = request.Email };
+        AppUser appUser = new()
+        {
+            DisplayName = request.DisplayName, 
+            UserName = request.Email, 
+            Email = request.Email
+        };
 
         IdentityResult result = await _userManager.CreateAsync(appUser, request.Password);
 
@@ -47,7 +52,8 @@ public sealed class AuthService : IAuthService
 
         RegisterResponseDto response = new()
             {
-                AccessToken = jwtTokenResult.Token, ExpiresAt = jwtTokenResult.ExpiresAt
+                AccessToken = jwtTokenResult.Token, 
+                ExpiresAt = jwtTokenResult.ExpiresAt
             }; 
 
         return response;
@@ -88,7 +94,8 @@ public sealed class AuthService : IAuthService
 
         LoginResponseDto response = new()
             {
-                AccessToken = jwtTokenResult.Token, ExpiresAt = jwtTokenResult.ExpiresAt
+                AccessToken = jwtTokenResult.Token, 
+                ExpiresAt = jwtTokenResult.ExpiresAt
             };
 
         return response;
