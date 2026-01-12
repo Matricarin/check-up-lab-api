@@ -9,4 +9,6 @@ public static class ApiRoles
     [UsedImplicitly] public static IReadOnlyList<string> AllRoles = Array.AsReadOnly([Admin, Consumer]);
 
     public const string Consumer = "Consumer";
+
+    public static string DefaultRole => Consumer;
 }
