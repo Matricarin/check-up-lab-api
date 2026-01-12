@@ -27,6 +27,19 @@ public sealed class AuthService : IAuthService
 
     public async Task<RegisterResponseDto?> CreateUser(RegisterRequestDto request)
     {
+        var appUser = new AppUser()
+        {
+            DisplayName = request.DisplayName,
+            Email = request.Email
+        };
+
+        var result = await _userManager.CreateAsync(appUser, request.Password);
+
+        if (!result.Succeeded)
+        {
+            //  TODO: return errors
+        }
+
         throw new NotImplementedException();
     }
 
